@@ -90,6 +90,7 @@ anti_depressants <- calling_dataset1 %>%
       target2_stop_row = .$target2_stop_row, 
       drug_class = .$drug_class
       ) %>% 
+
   as_tibble()
 
 nrow(anti_depressants)
