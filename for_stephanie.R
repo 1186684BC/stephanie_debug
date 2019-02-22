@@ -1,7 +1,7 @@
 library(tidyverse)
 library(readxl)
 
-inputfile = as.character(fs::file_info("/home/rob/Downloads/2019-02-22 MH Drug List.xlsx")$path)
+inputfile = as.character(fs::file_info("2019-02-22 MH Drug List.xlsx")$path)
 fs::file_exists(inputfile)
 
 readxl::excel_sheets(inputfile)
@@ -62,7 +62,7 @@ calling_dataset <- tibble(
   drug_class="anti_depressants"
 )
 calling_dataset
-rm(anti_depressants)
+# rm(anti_depressants)
 
 calling_dataset1<- calling_dataset %>% slice(1)
 calling_dataset1
@@ -77,20 +77,20 @@ old_fashioned <- getdrugdata(calling_dataset1$path,
 )
 nrow(old_fashioned)
 
-rm(anti_depressants)
-anti_depressants <- calling_dataset1 %>%  map_df(.,
-                                                getdrugdata,
-                                                path = .$path,
-                                                sheetnum   = .$sheetnum, 
-                                                target1 = .$target1, 
-                                                target2_col = .$target2_col, 
-                                                target2_start_row = .$target2_start_row, 
-                                                target2_stop_row = .$target2_stop_row, 
-                                                drug_class = .$drug_class
-                                                )
+# rm(anti_depressants)
+
+anti_depressants <- calling_dataset1 %>%  
+  map(.,
+      getdrugdata,
+      path = .$path,
+      sheetnum   = .$sheetnum, 
+      target1 = .$target1, 
+      target2_col = .$target2_col, 
+      target2_start_row = .$target2_start_row, 
+      target2_stop_row = .$target2_stop_row, 
+      drug_class = .$drug_class
+      ) %>% 
+  as.tibble()
+
 nrow(anti_depressants)
-
-
-
-
 
