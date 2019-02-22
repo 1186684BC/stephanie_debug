@@ -79,7 +79,7 @@ nrow(old_fashioned)
 
 # rm(anti_depressants)
 
-anti_depressants <- map_df(calling_dataset1[1], ~ {
+anti_depressants <- pmap_dfr(calling_dataset1, ~ {
       calling_dataset1 %>% 
       getdrugdata(
       path = .$path,
