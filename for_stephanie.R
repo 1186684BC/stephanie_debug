@@ -1,7 +1,10 @@
 library(tidyverse)
 library(readxl)
 
-inputfile = as.character(fs::file_info("/home/rob/Downloads/2019-02-22 MH Drug List.xlsx")$path)
+junk= fs::file_info(here::here("2019-02-22 MH Drug List.xlsx"))
+inputfile = as.character(junk$path)
+inputfile
+
 fs::file_exists(inputfile)
 
 readxl::excel_sheets(inputfile)
