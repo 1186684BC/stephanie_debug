@@ -79,19 +79,18 @@ nrow(old_fashioned)
 
 # rm(anti_depressants)
 
-anti_depressants <- calling_dataset1 %>%  
-  map(.,
-      getdrugdata,
+anti_depressants <- map_df(calling_dataset1[1], ~ {
+      calling_dataset1 %>% 
+      getdrugdata(
       path = .$path,
       sheetnum   = .$sheetnum, 
       target1 = .$target1, 
       target2_col = .$target2_col, 
       target2_start_row = .$target2_start_row, 
       target2_stop_row = .$target2_stop_row, 
-      drug_class = .$drug_class
-      ) %>% 
-
-  as_tibble()
+      drug_class = .$drug_class)
+}
+)
 
 nrow(anti_depressants)
 
